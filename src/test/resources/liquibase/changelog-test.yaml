@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: jamesyii
+      changes:
+        - createTable:
+            tableName: post_code_lat_lng
+            columns:
+              - column:
+                  name: id
+                  type: bigint auto_increment
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: postcode
+                  type: character varying(8)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: latitude
+                  type: float
+              - column:
+                  name: longitude
+                  type: float
+  - changeSet:
+      id: 2
+      author: jamesyii
+      changes:
+        - loadData:
+            file: liquibase/ukpostcodes-test.csv
+            tableName: post_code_lat_lng
+            usePreparedStatements: true
+            columns:
+              - column:
+                  header: id
+                  name: id
+                  type: numeric
+              - column:
+                  header: postcode
+                  name: postcode
+                  type: string
+              - column:
+                  header: latitude
+                  name: latitude
+                  type: numeric
+              - column:
+                  header: longitude
+                  name: longitude
+                  type: numeric
